@@ -1,0 +1,196 @@
+<% layout("/layouts/boilerplate") %>
+
+<section class="listing-page py-4">
+  <div class="container">
+
+    <!-- Title -->
+    <div class="text-center mb-4">
+      <h2 class="fw-bold"><%= listing.title %></h2>
+    </div>
+
+    <!-- Image + Details -->
+    <div class="card border-0 shadow-sm mb-4">
+      <img src="<%= listing.images[0].url %>" alt="Listing Image" class="card-img-top img-fluid listing-image">
+      <div class="card-body">
+        <p class="mb-1 text-muted">Owned by <strong><%= listing.owner.username %></strong></p>
+        <p class="card-text"><%= listing.description %></p>
+        <p class="fw-semibold fs-5">
+          ₹ <%= listing.price ? Number(listing.price).toLocaleString('en-IN') : 'N/A' %>
+        </p>
+        <p class="text-secondary"><i></i><%= listing.location %>, <%= listing.country %></p>
+      </div>
+    </div>
+
+    <!-- Owner Buttons -->
+    <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
+      <div class="container mb-4">
+        <div class="d-flex justify-content-start gap-3 flex-wrap">
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark px-4">Edit</a>
+          <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+            <button class="btn btn-outline-danger px-4">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% } %>
+
+  </div>
+
+  <!-- Reviews -->
+  <% if (currUser) { %>
+    <div class="review-section mb-4">
+      <hr>
+      <h4 class="mb-3">Leave a Review</h4>
+      <form action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation">
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating</label>
+          <fieldset class="starability-slot">
+            <input type="radio" id="r1" name="review[rating]" value="1" required><label for="r1">1</label>
+            <input type="radio" id="r2" name="review[rating]" value="2"><label for="r2">2</label>
+            <input type="radio" id="r3" name="review[rating]" value="3"><label for="r3">3</label>
+            <input type="radio" id="r4" name="review[rating]" value="4"><label for="r4">4</label>
+            <input type="radio" id="r5" name="review[rating]" value="5"><label for="r5">5</label>
+          </fieldset>
+        </div>
+        <div class="mb-3">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea name="review[comment]" id="comment" rows="4" class="form-control" required></textarea>
+          <div class="invalid-feedback">Please add a comment.</div>
+        </div>
+        <button class="btn btn-outline-dark">Submit</button>
+      </form>
+    </div>
+  <% } %>
+
+  <!-- All Reviews -->
+  <div class="reviews mb-5">
+    <h5 class="fw-bold mb-3">All Reviews</h5>
+    <div class="row">
+      <% for (review of listing.reviews) { %>
+        <div class="col-12 col-md-6 mb-3">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+              <h6>@<%= review.author.username %></h6>
+              <p class="starability-result" data-rating="<%= review.rating %>"></p>
+              <p><%= review.comment %></p>
+
+              <!-- Calendar -->
+              <!-- BOOKING BOX (Frontend Only) -->
+              <div class="card shadow-sm p-4 mb-4" id="booking-box">
+                <h4 class="fw-bold mb-3">Book Your Stay</h4>
+
+                <!-- Price -->
+                <p class="fs-4 mb-3">
+                  ₹ <%= listing.price %> <span class="text-muted fs-6">/ night</span>
+                </p>
+
+                <!-- Form -->
+                <div class="row g-3">
+                  <!-- Check-in -->
+                  <div class="col-md-6">
+                    <label class="form-label">Check-in</label>
+                    <input type="date" id="checkin" class="form-control" required>
+                  </div>
+
+                  <!-- Check-out -->
+                  <div class="col-md-6">
+                    <label class="form-label">Check-out</label>
+                    <input type="date" id="checkout" class="form-control" required>
+                  </div>
+
+                  <!-- Guests -->
+                  <div class="col-12">
+                    <label class="form-label">Guests</label>
+                    <select id="guests" class="form-select">
+                      <option value="1">1 Guest</option>
+                      <option value="2">2 Guests</option>
+                      <option value="3">3 Guests</option>
+                      <option value="4">4 Guests</option>
+                    </select>
+                  </div>
+
+                  <!-- Total Nights -->
+                  <div class="col-12">
+                    <p class="fw-semibold mt-2" id="total-nights"></p>
+                  </div>
+
+                  <!-- Request Button (Frontend Only) -->
+                  <div class="col-12">
+                    <button class="btn btn-dark w-100 py-2" id="reserve-btn">Reserve</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Only show Delete button to review author -->
+              <% if (currUser && review.author._id.equals(currUser._id)) { %>
+                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                  <button class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Calendar Script -->
+  <script>
+    const checkin = document.getElementById("checkin");
+    const checkout = document.getElementById("checkout");
+    const totalNights = document.getElementById("total-nights");
+
+    function updateNights() {
+      let inDate = new Date(checkin.value);
+      let outDate = new Date(checkout.value);
+
+      if (!isNaN(inDate) && !isNaN(outDate) && outDate > inDate) {
+        let diff = Math.ceil((outDate - inDate) / (1000 * 60 * 60 * 24));
+        totalNights.innerHTML = `🛏 <strong>${diff}</strong> night(s)`;
+      } else {
+        totalNights.innerHTML = "";
+      }
+    }
+
+    checkin.addEventListener("change", updateNights);
+    checkout.addEventListener("change", updateNights);
+
+    document.getElementById("reserve-btn").addEventListener("click", () => {
+      if (!checkin.value || !checkout.value) {
+        alert("Please select check-in and check-out dates.");
+        return;
+      }
+      alert("Booking UI only — backend not connected yet.");
+    });
+  </script>
+
+</section>
+
+<script>
+  document.querySelector('.needs-validation').addEventListener('submit', (e) => {
+    const ratingSelected = document.querySelector('input[name="review[rating]"]:checked');
+    if (!ratingSelected) {
+      e.preventDefault();
+      alert("Please select a rating before submitting your review.");
+    }
+  });
+</script>
+
+<style>
+  #booking-box {
+    border-radius: 16px;
+  }
+
+  #booking-box input,
+  #booking-box select {
+    padding: 10px;
+  }
+
+  #reserve-btn {
+    font-size: 1.1rem;
+    border-radius: 10px;
+  }
+
+  #total-nights {
+    font-size: 1.1rem;
+  }
+</style>

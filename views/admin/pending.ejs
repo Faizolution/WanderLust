@@ -1,0 +1,114 @@
+<%- include("../layouts/boilerplate.ejs") %>
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="mb-4">Pending Host Verifications</h2>
+
+    <% if(pendingListings.length === 0) { %>
+        <div class="alert alert-success text-center">
+            🎉 All listings are verified! No pending requests.
+        </div>
+    <% } %>
+
+    <div class="row">
+        <% pendingListings.forEach(listing => { %>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm border-0 verify-card">
+
+                    <!-- Listing Image -->
+                    <img 
+                        src="<%= listing.image && listing.image[0] ? listing.image[0].url : 'https://via.placeholder.com/300' %>" 
+                        class="card-img-top" 
+                        style="height: 200px; object-fit: cover;"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title"><%= listing.title %></h5>
+                        <p class="text-muted"><%= listing.location %></p>
+
+                        <hr>
+
+                        <h6>Host Documents:</h6>
+
+                        <div class="mb-2">
+                            <strong>ID Proof:</strong><br>
+                            <% if(listing.documents?.idProof) { %>
+                                <a href="<%= listing.documents.idProof.url %>" target="_blank" class="doc-link">
+                                    View ID Proof
+                                </a>
+                            <% } else { %>
+                                <span class="text-danger">Not Uploaded</span>
+                            <% } %>
+                        </div>
+
+                        <div class="mb-2">
+                            <strong>Ownership Proof:</strong><br>
+                            <% if(listing.documents?.ownershipProof) { %>
+                                <a href="<%= listing.documents.ownershipProof.url %>" target="_blank" class="doc-link">
+                                    View Ownership Document
+                                </a>
+                            <% } else { %>
+                                <span class="text-danger">Not Uploaded</span>
+                            <% } %>
+                        </div>
+
+                        <div class="mb-2">
+                            <strong>Other Documents:</strong><br>
+                            <% if(listing.documents?.otherDocs && listing.documents.otherDocs.length > 0) { %>
+                                <% listing.documents.otherDocs.forEach(doc => { %>
+                                    <a href="<%= doc.url %>" target="_blank" class="doc-link d-block">
+                                        View Document
+                                    </a>
+                                <% }) %>
+                            <% } else { %>
+                                <span class="text-muted">None</span>
+                            <% } %>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <!-- Approve button -->
+                            <form action="/admin/verify/<%= listing._id %>" method="POST">
+                                <button class="btn btn-success btn-sm">
+                                    ✔ Approve
+                                </button>
+                            </form>
+
+                            <!-- Reject button -->
+                            <form action="/admin/reject/<%= listing._id %>" method="POST">
+                                <button class="btn btn-danger btn-sm">
+                                    ✖ Reject
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+</div>
+
+<style>
+    .verify-card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .doc-link {
+        color: #0077cc;
+        font-size: 0.9rem;
+        text-decoration: none;
+    }
+
+    .doc-link:hover {
+        text-decoration: underline;
+    }
+
+    hr {
+        margin: 10px 0;
+    }
+</style>

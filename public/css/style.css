@@ -1,0 +1,401 @@
+
+/* .container {
+    flex: 1;
+} */
+ body {
+     font-family: "Plus Jakarta Sans", sans-serif !important;
+     display: flex;
+     flex-direction: column;
+     min-height: 100vh;
+     background-color: #f8f9fa;
+     color: #333;
+}
+
+
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.container-fluid {
+  background-color: white;
+}
+
+.fa-google-wallet {
+     color :#fe424d;
+     font-size: 2rem;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+/* Footer */
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-links, .f-info-socials, .f-info-brand {
+    width: 100%;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.f-info {
+    text-align: center;
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+/* Cards */
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100%;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0% !important;
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+/* Card Effect */
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+/* New Page */
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* Edit Page */
+.edit-btn {
+     background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* Show Page */
+.show-img {
+    height: 30vh;
+    display: flex;
+}
+
+.btns {
+    display: flex;
+}
+
+.show-card {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 30vh;
+}
+
+.original-image {
+  width: 250px;
+  height: 167px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+
+/* new style for show page */
+/* --- Listing Page --- */
+.listing-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+#map {
+  width: 100%;
+  height: 320px;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .listing-image {
+    height: 240px;
+  }
+
+  .review-section,
+  .reviews {
+    margin: 0 10px;
+  }
+
+  #map {
+    height: 250px;
+  }
+}
+
+/* Buttons and spacing */
+.btn {
+  border-radius: 8px;
+}
+
+/* Typography */
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+h2, h4, h5 {
+  color: #222;
+}
+
+/* footer */
+
+footer {
+    background-color: #f7f7f7;
+    padding: 40px 0;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 50px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.footer-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+.footer-section a {
+    display: block;
+    color: #555;
+    font-size: 0.9rem;
+    margin: 6px 0;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+    color: #000;
+}
+
+.footer-social .social-icons i {
+    font-size: 18px;
+    margin-right: 12px;
+    cursor: pointer;
+    color: #444;
+}
+
+.footer-social .social-icons i:hover {
+    color: #000;
+}
+
+.brand-name {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    color: #333;
+}
+
+
+
+/* WISHLIST */
+.wishlist-heart {
+  cursor: pointer;
+}
+
+.fa-regular.fa-heart {
+    color: black !important;
+}
+
+
+
+
+
+
+
+.navbar {
+    transition: all 0.3s ease;
+}
+
+.navbar-scrolled {
+    background: white !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+
+
+
+
+
+/* search bar */
+.search-bar-container {
+    width: 100%;
+}
+
+.search-bar {
+    background: white;
+    border-radius: 50px;
+    padding: 10px 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    max-width: 800px;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.search-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.search-item label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 2px;
+}
+
+.search-item input,
+.search-item select {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+}
+
+.search-item input:focus,
+.search-item select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.search-btn {
+    background: #ff385c;
+    width: 35px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.search-btn:hover {
+    background: #e03150;
+    transform: scale(1.05);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .search-bar {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .search-btn {
+        width: 100%;
+        border-radius: 12px;
+        height: 45px;
+    }
+}
+
+
+.search-bar {
+    background: white;
+    border-radius: 50px;
+    padding: 12px 20px;
+    display: flex;
+    gap: 22px;
+    align-items: center;
+    max-width: 950px;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.search-item label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #444;
+}
+
+.search-item input,
+.search-item select {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+}
+
+.search-btn {
+    background: #ff385c;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-btn:hover {
+    background: #e03150;
+    transform: scale(1.05);
+}
+
