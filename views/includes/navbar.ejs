@@ -1,5 +1,3 @@
-<% var currUser = typeof currUser !== 'undefined' ? currUser : null; %>
-
 <style>
   /* ===== Airbnb-Inspired Navbar Styling ===== */
   .navbar {
@@ -131,55 +129,30 @@
   }
 </style>
 
-
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid d-flex justify-content-between align-items-center">
     <!-- Left Logo -->
     <a class="navbar-brand" href="/listings">
-      <i class="fa-brands fa-google-wallet"></i> WanderLust
+      <i class="fa-brands fa-google-wallet"></i> WanderStay
     </a>
 
     <!-- Center Search (Floating Red-White Box) -->
-   <div class="container mt-4">
-  <div class="search-bar shadow-sm mx-auto">
-    
-    <div class="search-item">
-      <label>Where</label>
-      <input type="text" placeholder="Search destinations">
+    <div class="search-container d-none d-lg-flex">
+      <div class="search-box">
+        <span class="search-item">Anywhere</span>
+        <div class="search-divider"></div>
+        <span class="search-item">Any week</span>
+        <div class="search-divider"></div>
+        <span class="text-muted">Add guests</span>
+        <div class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
     </div>
 
-    <div class="search-item">
-      <label>Check in</label>
-      <input type="date">
-    </div>
-
-    <div class="search-item">
-      <label>Check out</label>
-      <input type="date">
-    </div>
-
-    <div class="search-item">
-      <label>Guests</label>
-      <select>
-        <option>1 guest</option>
-        <option>2 guests</option>
-        <option>3 guests</option>
-        <option>4+ guests</option>
-      </select>
-    </div>
-
-    <button class="search-btn">
-      <i class="fa fa-search"></i>
-    </button>
-
-  </div>
-</div>
-
-    </div>
- 
     <!-- Right Side (User and Globe) -->
     <div class="right-icons">
-      <a href="/listings/new" class="text-dark fw-semibold text-decoration-none">Your Home </a>
+      <a href="/listings/new" class="text-dark fw-semibold text-decoration-none">Airbnb your home</a>
       <i class="fa-solid fa-globe globe-icon"></i>
 
       <!-- Dropdown Menu -->
@@ -191,10 +164,10 @@
           aria-expanded="false"
         >
           <i class="fa-solid fa-bars"></i>
-          <% if (typeof currUser !== 'undefined' && currUser) { %>
-  <i class="fa-solid fa-user-circle fs-5"></i>
-  <span class="username"><%= currUser.username %></span>
-<% } %>
+           <% if(currUser){ %>
+          <i class="fa-solid fa-user-circle fs-5"></i>
+         <span class="username"><%= currUser.username %></span>
+          <% } %>
         </div>
 
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">
@@ -204,14 +177,6 @@
           <% } else { %>
             <li><a class="dropdown-item" href="/profile">Profile</a></li>
             <li><a class="dropdown-item" href="/listings">My Listings</a></li>
-
-                <!-- ✅ Wishlist Link -->
-    <li>
-      <a class="dropdown-item" href="/wishlist">
-        <i class="fa-regular fa-heart"></i> Wishlist
-      </a>
-    </li>
-
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
           <% } %>
@@ -220,19 +185,3 @@
     </div>
   </div>
 </nav>
-
-<style>
-  /* Default navbar */
-#mainNavbar {
-  transition: all 0.3s ease;
-  padding: 20px 0;
-}
-
-/* Scrolled state */
-.navbar-scrolled {
-  background: #ffffff !important;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-  padding: 10px 0 !important;
-}
-
-</style>
