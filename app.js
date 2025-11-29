@@ -25,6 +25,10 @@ const adminRoutes = require("./routes/admin");
 
 const dbUrl = process.env.ATLASDB_URL;
 
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 
 main().then(() => {
     console.log("connected to DB");
