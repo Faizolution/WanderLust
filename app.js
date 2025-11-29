@@ -25,11 +25,6 @@ const adminRoutes = require("./routes/admin");
 
 const dbUrl = process.env.ATLASDB_URL;
 
-app.get("/", (req, res) => {
-  res.redirect("/listings");
-});
-
-
 main().then(() => {
     console.log("connected to DB");
 }).catch((err) => {
@@ -39,6 +34,10 @@ main().then(() => {
 async function main() {
     await mongoose.connect(dbUrl);
 }
+
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"views"));
@@ -131,4 +130,8 @@ app.all(/.*/, (req, res, next) => {
 
 app.listen(8080, () => {
     console.log("server is listening to port 8080");
+});
+
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page Not Found"));
 });
